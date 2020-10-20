@@ -1,0 +1,6 @@
+.idea
+.gradle
+*.iml
+build
+#Prevent to push pixelmon artifact
+libs/Pixelmon*.jar

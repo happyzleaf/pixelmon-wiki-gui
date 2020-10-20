@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "pixelmonwikigui",
+    "name": "PixelmonWikiGUI",
+    "description": "Pixelmon wiki now with GUI!",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://happyzleaf.com/",
+    "updateUrl": "",
+    "authorList": [
+      "mishkapp",
+      "happyzleaf"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
