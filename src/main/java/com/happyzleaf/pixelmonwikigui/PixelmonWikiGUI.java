@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class PixelmonWikiGUI {
 	public static final String MOD_ID = "pixelmonwikigui";
 	public static final String MOD_NAME = "PixelmonWikiGUI";
-	public static final String VERSION = "1.1.3";
+	public static final String VERSION = "1.1.4";
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 

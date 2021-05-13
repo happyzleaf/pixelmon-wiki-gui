@@ -1,8 +1,5 @@
 package com.mishkapp.minecraft.pixelmonwikigui
 
-import java.util
-import java.util.Collections
-
 import com.happyzleaf.pixelmonwikigui.helper.{PixelmonHelper, ReflectionHelper}
 import com.pixelmonmod.pixelmon.api.spawning.SpawnSet
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.pokemon.SpawnInfoPokemon
@@ -14,6 +11,8 @@ import com.pixelmonmod.pixelmon.enums.EnumType
 import net.minecraft.block.Block
 import net.minecraft.util.text.TextFormatting
 
+import java.util
+import java.util.Collections
 import scala.collection.JavaConverters._
 
 class ScalaPixelmonUtil {
@@ -22,7 +21,7 @@ class ScalaPixelmonUtil {
       .flatMap(s => s.spawnInfos.asScala
         .filter(_.isInstanceOf[SpawnInfoPokemon])
         .map(_.asInstanceOf[SpawnInfoPokemon])
-        .filter(_.getPokemonSpec.name.equalsIgnoreCase(pokemon.pixelmonName))
+        .filter(_.getPokemonSpec.name.equalsIgnoreCase(pokemon.getPokemonName))
         .filter(si => si.spawnSpecificBossRate == null)
         .map(si => {
           si.condition.biomes.asScala
@@ -53,7 +52,7 @@ class ScalaPixelmonUtil {
       .flatMap(s => s.spawnInfos.asScala
         .filter(_.isInstanceOf[SpawnInfoPokemon])
         .map(_.asInstanceOf[SpawnInfoPokemon])
-        .filter(_.getPokemonSpec.name.equalsIgnoreCase(pokemon.pixelmonName))
+        .filter(_.getPokemonSpec.name.equalsIgnoreCase(pokemon.getPokemonName))
         .filter(_.condition.times != null)
         .map(si => {
           si.condition.times.asScala
@@ -72,8 +71,8 @@ class ScalaPixelmonUtil {
   }
 
   def getCatchRate(pokemon: BaseStats): util.List[String] = {
-    var res = List[String](TextFormatting.GRAY + "Base rate: " + (pokemon.catchRate.toDouble / 255.0D * 100.0D).toInt.toString + "%")
-    val males = pokemon.malePercent
+    var res = List[String](TextFormatting.GRAY + "Base rate: " + (pokemon.getCatchRate.toDouble / 255.0D * 100.0D).toInt.toString + "%")
+    val males = pokemon.getMalePercent
     if (males == -1) {
       res :+= TextFormatting.GRAY + "⚲ Genderless"
     } else {
@@ -85,7 +84,7 @@ class ScalaPixelmonUtil {
   }
 
   def getAbilities(pokemon: BaseStats): util.List[String] = {
-    pokemon.abilities
+    pokemon.getAbilitiesArray
       .filter(_ != null)
       .map(a => AbilityBase.getAbility(a).orElse(null))
       .filter(_ != null)
@@ -95,7 +94,7 @@ class ScalaPixelmonUtil {
   }
 
   def getEvolutions(pokemon: BaseStats): util.List[String] = {
-    pokemon.evolutions.asScala.map(e => TextFormatting.GOLD + e.to.name)
+    pokemon.getEvolutions.asScala.map(e => TextFormatting.GOLD + e.to.name)
       .toList
       .asJava
   }
@@ -163,15 +162,18 @@ class ScalaPixelmonUtil {
   }
 
   def getMoves(pokemon: BaseStats): util.List[String] = {
-    pokemon.levelUpMoves.asScala
+    pokemon.getLevelupMoves.asScala
       .map { case (l, m) => TextFormatting.GOLD + l.toString + ": " + TextFormatting.AQUA + m.asScala.map(_.toString).mkString(", ") }
       .toList
       .asJava
   }
 
   def getTMMoves(pokemon: BaseStats): util.List[String] = {
+    val tms = pokemon.getTMMoves.asScala.map(a => a.getAttackName).toList
+    val hms = pokemon.getHmMoves.asScala.map(a => a.getAttackName).toList
+
     List[String](
-      TextFormatting.GOLD + pokemon.getTMHMMoves.asScala.map(a => a.getActualMove.getLocalizedName).mkString(", ")
+      TextFormatting.GOLD + (tms ++ hms).mkString(", ")
     )
       .asJava
   }

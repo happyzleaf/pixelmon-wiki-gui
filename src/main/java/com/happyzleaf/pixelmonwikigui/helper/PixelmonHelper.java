@@ -1,14 +1,11 @@
 package com.happyzleaf.pixelmonwikigui.helper;
 
-//import com.happyzleaf.pixelmonwikigui.helper.ScalaPixelmonUtil;
-
 import com.mishkapp.minecraft.pixelmonwikigui.ScalaPixelmonUtil;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.api.world.WeatherType;
 import com.pixelmonmod.pixelmon.api.world.WorldTime;
+import com.pixelmonmod.pixelmon.battles.attacks.Attack;
 import com.pixelmonmod.pixelmon.config.PixelmonItems;
-import com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry;
-import com.pixelmonmod.pixelmon.entities.npcs.registry.PokemonDropInformation;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.BaseStats;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
@@ -250,5 +247,9 @@ public class PixelmonHelper {
 			}
 		}
 		return description;
+	}
+
+	public static LinkedHashSet<Attack> getTMHMMoves(BaseStats pokemon) {
+		return pokemon.getTMHMMoves();
 	}
 }

@@ -55,3 +55,7 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = ["-nowarn"]
+}
