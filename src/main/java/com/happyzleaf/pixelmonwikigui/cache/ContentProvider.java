@@ -7,10 +7,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.happyzleaf.pixelmonwikigui.PixelmonWikiGUI;
 import com.pixelmonmod.pixelmon.battles.attacks.AttackBase;
-import com.pixelmonmod.pixelmon.config.PixelmonItems;
-import com.pixelmonmod.pixelmon.config.PixelmonItemsBadges;
-import com.pixelmonmod.pixelmon.config.PixelmonItemsHeld;
-import com.pixelmonmod.pixelmon.config.PixelmonItemsPokeballs;
+import com.pixelmonmod.pixelmon.config.*;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.BaseStats;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.Evolution;
@@ -20,16 +17,14 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.types.Leveling
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.evolution.types.TradeEvolution;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.enums.EnumType;
+import com.pixelmonmod.pixelmon.enums.technicalmoves.Gen4TechnicalMachines;
+import com.pixelmonmod.pixelmon.enums.technicalmoves.Gen5TechnicalMachines;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -48,13 +43,13 @@ public enum ContentProvider {
 			int i = 0;
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsBadges.marshBadge))
+					.item(removeLore(new ItemStack(PixelmonItemsBadges.marshBadge)))
 					.displayName("\u00A7r\u00A7lType")
 					.lore(getTypes(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsHeld.weaknessPolicy))
+					.item(removeLore(new ItemStack(PixelmonItemsHeld.weaknessPolicy)))
 					.displayName("\u00A7r\u00A7lBase Stats")
 					.lore(getBaseStats(stats))
 					.build();
@@ -78,19 +73,19 @@ public enum ContentProvider {
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsPokeballs.pokeBall))
+					.item(removeLore(new ItemStack(PixelmonItemsPokeballs.pokeBall)))
 					.displayName("\u00A7r\u00A7lCatch Rate")
 					.lore(SCALA_UTILS.getCatchRate(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItems.abilityCapsule))
+					.item(removeLore(new ItemStack(PixelmonItems.abilityCapsule)))
 					.displayName("\u00A7r\u00A7lAbilities")
 					.lore(SCALA_UTILS.getAbilities(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsHeld.powerWeight))
+					.item(removeLore(new ItemStack(PixelmonItemsHeld.powerWeight)))
 					.displayName("\u00A7r\u00A7lEV Yield")
 					.lore(SCALA_UTILS.getEVYield(stats))
 					.build();
@@ -102,7 +97,7 @@ public enum ContentProvider {
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsHeld.upGrade))
+					.item(removeLore(new ItemStack(PixelmonItemsHeld.upGrade)))
 					.displayName("\u00A7r\u00A7lEvolutions")
 					.lore(getEvolutions(stats))
 					.onClick(action -> {
@@ -114,31 +109,31 @@ public enum ContentProvider {
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("pixelmon", "tm11"))))
+					.item(removeLore(PixelmonItemsTMs.createStackFor(Gen4TechnicalMachines.Dragon_Claw)))
 					.displayName("\u00A7r\u00A7lTutor Moves")
 					.lore(SCALA_UTILS.getTutorMoves(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("pixelmon", "tm6"))))
+					.item(removeLore(new ItemStack(PixelmonItemsTMs.HMs.get(0))))
 					.displayName("\u00A7r\u00A7lTM/HM Moves")
 					.lore(SCALA_UTILS.getTMMoves(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("pixelmon", "tm1"))))
+					.item(removeLore(PixelmonItemsTMs.createStackFor(Gen5TechnicalMachines.Incinerate)))
 					.displayName("\u00A7r\u00A7lMoves by Level")
 					.lore(SCALA_UTILS.getMoves(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItemsBadges.rumbleBadge))
+					.item(removeLore(new ItemStack(PixelmonItemsBadges.rumbleBadge)))
 					.displayName("\u00A7r\u00A7lEffectiveness")
 					.lore(SCALA_UTILS.getTypeEffectiveness(stats))
 					.build();
 
 			content[i++] = Button.builder()
-					.item(new ItemStack(PixelmonItems.ranchUpgrade))
+					.item(removeLore(new ItemStack(PixelmonItems.ranchUpgrade)))
 					.displayName("\u00A7r\u00A7lBreeding Environment")
 					.lore(getBreeding(stats))
 					.build();

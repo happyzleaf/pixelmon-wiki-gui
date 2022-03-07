@@ -1,6 +1,6 @@
 package com.mishkapp.minecraft.pixelmonwikigui
 
-import com.happyzleaf.pixelmonwikigui.helper.{PixelmonHelper, ReflectionHelper}
+import com.happyzleaf.pixelmonwikigui.helper.{FuckScala, PixelmonHelper, ReflectionHelper}
 import com.pixelmonmod.pixelmon.api.spawning.SpawnSet
 import com.pixelmonmod.pixelmon.api.spawning.archetypes.entities.pokemon.SpawnInfoPokemon
 import com.pixelmonmod.pixelmon.api.spawning.util.SetLoader
@@ -30,7 +30,7 @@ class ScalaPixelmonUtil {
               if (biomeName == null) {
                 TextFormatting.ITALIC + TextFormatting.RED.toString + "JAVA ERROR FOR " + biome.getClass.getSimpleName
               } else {
-                TextFormatting.GOLD + biomeName + " " + (si.rarity / 255.0D * 100.0D).asInstanceOf[Int].toString + "%"
+                TextFormatting.GOLD + biomeName + " " + FuckScala.formatDecimal(si.rarity / 255d * 100d) + "%"
               }
 
               // Removed in 1.1.3 due to client request
@@ -56,11 +56,13 @@ class ScalaPixelmonUtil {
         .filter(_.condition.times != null)
         .map(si => {
           si.condition.times.asScala
+            .distinct
             .map(t => PixelmonHelper.formatTime(t))
         }
         ))
       .flatten
       .toList
+      .distinct
       .asJava
 
     if (result.isEmpty) {
@@ -163,7 +165,7 @@ class ScalaPixelmonUtil {
 
   def getMoves(pokemon: BaseStats): util.List[String] = {
     pokemon.getLevelupMoves.asScala
-      .map { case (l, m) => TextFormatting.GOLD + l.toString + ": " + TextFormatting.AQUA + m.asScala.map(_.toString).mkString(", ") }
+      .map { case (l, m) => TextFormatting.GOLD + l.toString + ": " + TextFormatting.AQUA + m.asScala.map(_.getAttackName).mkString(", ") }
       .toList
       .asJava
   }

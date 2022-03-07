@@ -11,6 +11,7 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.enums.EnumType;
+import com.pixelmonmod.pixelmon.util.ITranslatable;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandException;
 import net.minecraft.item.ItemStack;
@@ -29,9 +30,9 @@ import java.util.stream.Collectors;
 public class PixelmonHelper {
 	public static final ScalaPixelmonUtil SCALA_UTILS = new ScalaPixelmonUtil();
 
-	public static final Set<String> POKEMON_NAMES = Arrays.stream(EnumSpecies.values()).map(EnumSpecies::name).collect(Collectors.toSet());
+	public static final Set<String> POKEMON_NAMES = Arrays.stream(EnumSpecies.values()).map(ITranslatable::getLocalizedName).collect(Collectors.toSet());
 
-	private static List<String> NONE = Collections.singletonList(TextFormatting.DARK_GRAY + "None");
+	private static final List<String> NONE = Collections.singletonList(TextFormatting.DARK_GRAY + "None");
 
 	public static ItemStack getPhoto(EnumSpecies species) {
 		BaseStats stats = species.getBaseStats();
@@ -72,7 +73,7 @@ public class PixelmonHelper {
 		} catch (NumberFormatException ignored) {
 		}
 
-		EnumSpecies species = EnumSpecies.getFromNameAnyCaseNoTranslate(nameOrId);
+		EnumSpecies species = EnumSpecies.getFromNameAnyCase(nameOrId);
 		if (species == null) {
 			throw new CommandException(String.format("The name '%s' does not correspond to a pokémon.", nameOrId));
 		}
@@ -247,6 +248,13 @@ public class PixelmonHelper {
 			}
 		}
 		return description;
+	}
+
+	public static ItemStack removeLore(ItemStack is) {
+		NBTTagCompound nbt = is.writeToNBT(new NBTTagCompound());
+		nbt.setString("tooltip", "");
+		is.setTagCompound(nbt);
+		return is;
 	}
 
 	public static LinkedHashSet<Attack> getTMHMMoves(BaseStats pokemon) {
