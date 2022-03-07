@@ -6,6 +6,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.happyzleaf.pixelmonwikigui.PixelmonWikiGUI;
+import com.pixelmonmod.pixelmon.api.world.WorldTime;
 import com.pixelmonmod.pixelmon.battles.attacks.AttackBase;
 import com.pixelmonmod.pixelmon.config.*;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.BaseStats;
@@ -198,7 +199,10 @@ public enum ContentProvider {
 							description.add("\u00A7r\u00A77Must have these pok\u00E9mon types with you: \u00E96" + ((PartyCondition) condition).withTypes.toString());
 						}
 					} else if (condition instanceof TimeCondition) {
-						description.add("\u00A7r\u00A77During: " + formatTime(((TimeCondition) condition).time));
+						WorldTime time = ((TimeCondition) condition).time;
+						if (time != null) {
+							description.add("\u00A7r\u00A77During: " + formatTime(time));
+						}
 					} else if (condition instanceof WeatherCondition) {
 						description.add("\u00A7r\u00A77Weather: " + formatWeather(((WeatherCondition) condition).weather));
 					}

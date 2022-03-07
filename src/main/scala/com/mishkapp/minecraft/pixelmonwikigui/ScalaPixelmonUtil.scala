@@ -57,6 +57,7 @@ class ScalaPixelmonUtil {
         .map(si => {
           si.condition.times.asScala
             .distinct
+            .filter(t => t != null)
             .map(t => PixelmonHelper.formatTime(t))
         }
         ))

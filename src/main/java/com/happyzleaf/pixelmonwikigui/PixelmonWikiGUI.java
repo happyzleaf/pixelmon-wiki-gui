@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class PixelmonWikiGUI {
 	public static final String MOD_ID = "pixelmonwikigui";
 	public static final String MOD_NAME = "PixelmonWikiGUI";
-	public static final String VERSION = "1.1.5";
+	public static final String VERSION = "1.1.6";
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
@@ -23,6 +23,6 @@ public class PixelmonWikiGUI {
 		event.registerServerCommand(new CommandWiki());
 //		event.registerServerCommand(new CommandDropInfo());
 
-		LOGGER.info(String.format("%s v%s loaded! This plugin was made by mishkapp and was rewritten by happyzleaf. (https://happyzleaf.com/)", MOD_NAME, VERSION));
+		LOGGER.info(String.format("%s v%s loaded! This plugin was made by mishkapp and rewritten by happyzleaf. (https://happyzleaf.com/)", MOD_NAME, VERSION));
 	}
 }
